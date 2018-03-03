@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <title>Trivia Game</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="menu">
+        <h1> Welcome to Video Game Trivia </h1>
+        <p> Please select how you want to be quizzed </p>
+        <form v-on:submit.prevent="get_questions">  
+	  Number of questions
+	  <input v-model="num_questions" placeholder="Number of questions"><br> <br>
+	  Difficulty
+	  <select v-model="difficulty">
+  	    <option disabled value="">Please select difficulty</option>
+	    <option>Easy</option>
+	    <option>Medium</option>
+	    <option>Hard</option>
+	  </select>
+	  <p> <input type="submit" v-on:click="get_questions"> </p>
+        </form>   
+      </div>
+      <div v-else>
+        <div v-if="loading">
+	  <p>Loading...</p>
+        </div>
+        <div v-else>
+	 <div v-if="scoreboard">
+	  <h1> Congratulations! You got {{scoring}}% </h1>
+	 </div>
+	 <div v-else>
+	  <p> {{page}} </p>
+<!--          <p>
+	    <button v-on:click="previous_page">Previous</button>
+	    <button v-on:click="next_page">Next</button>
+          </p>  -->
+	  <div>
+	    <hr>
+	    <p> {{current.q}} </p>
+	    <form>
+  	      <input type="radio" name="answer" value="a" v-model="picked"> {{current.a}} <br>
+  	      <input type="radio" name="answer" value="b" v-model="picked"> {{current.b}} <br>
+  	      <input type="radio" name="answer" value="c" v-model="picked"> {{current.c}} <br>
+	      <input type="radio" name="answer" value="d" v-model="picked"> {{current.d}} <br>
+	    </form>
+	  </div>
+	  <p>
+	    <input type="submit" v-on:click=check_answer>
+          </p>
+	  <div>
+	    <p> Correct: {{score}} </p>
+	    <p> Mistakes: {{mistake}} </p>
+	  </div>
+	 </div>
+	</div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Web Designer: Jack Demke</p>
+      <p>Github: <a href="https://github.com/demkejon001/video_game_trivia">https://github.com/demkejon001/video_game_trivia</a> </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
